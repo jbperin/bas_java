@@ -57,11 +57,20 @@ public class Main {
 
     private static void useDebiteur() {
         List<Contrat> listeDeContrat = new ArrayList<Contrat> ();
-        Contrat ContratAssurance = new ContratMensuel("Assurance", -30.00, 8);
-        listeDeContrat.add(ContratAssurance);
+        //Contrat ContratAssurance = ;
+        listeDeContrat.add(new ContratMensuel("Assurance", -120.00, 8));
 
-        Contrat Impots = new ContratAnnuel("Impot", -120.00, 8, Month.JANUARY);
-        listeDeContrat.add(Impots);
+        //Contrat Impots = new ContratAnnuel("Internet", -120.00, 8, Month.JANUARY);
+        listeDeContrat.add(new ContratMensuel("Internet+mobile", -60.00, 8));
+        listeDeContrat.add(new ContratMensuel("Eau", -20.00, 8));
+        listeDeContrat.add(new ContratMensuel("Electricite", -120.00, 8));
+
+        Contrat CreditImmobilier = new ContratMensuel("Credit", -376.00, 8);
+        CreditImmobilier.setDateExpiration(LocalDate.of(2017, Month.FEBRUARY, 01));
+        listeDeContrat.add(CreditImmobilier);
+
+        listeDeContrat.add(new ContratMensuel("LoyerLocation", -800.00, 8));
+        listeDeContrat.add(new ContratMensuel("Salaire", +3000.00, 8));
 
         LocalDate dateDebut = LocalDate.now();
         LocalDate dateFin = dateDebut.plusMonths(4);
@@ -71,7 +80,7 @@ public class Main {
             for (Contrat cont: listeDeContrat
                  ) {
                 LigneOperation ope;
-                if ((ope = cont.lireOperation(dateParcours)) != null) {
+                if ((ope = cont.operationOnDate(dateParcours)) != null) {
                     System.out.println(ope);
                 }
             }
